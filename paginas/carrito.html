@@ -1,105 +1,60 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Carrito - Tienda Glamour</title>
-  <link rel="stylesheet" href="../css/carrito.css" />
-</head>
-<body>
-  <header>
-    <h1>Tienda Glamour</h1>
-    <nav>
-      <ul>
-        <li><a href="../index.html">Inicio</a></li>
-        <li><a href="./productos.html">Productos</a></li>
-        <li><a href="./carrito.html">Carrito</a></li>
-      </ul>
-    </nav>
-  </header>
+<script>
+  let carrito = [];
+  let total = 0;
 
-  <div class="container" style="flex-direction: column;">
-    <section class="nuevos-productos">
-      <h2>Carrito de Compras</h2>
-      <div class="productos">
-        <div class="producto" data-id="1">
-          <img src="../images/brocha.jpg" alt="Brocha">
-          <h3>Brocha</h3>
-          <p>Precio: $25.000</p>
-          <button class="añadir-carrito">Añadir al carrito</button>
-        </div>
-      </div>
+  // Función para actualizar el total y la lista del carrito
+  function actualizarCarrito() {
+    // Actualizar el total
+    document.getElementById('total').textContent = `$${total.toLocaleString()}`;
 
-      <h3>Total: <span id="total">$0</span></h3>
-      <button id="finalizar-compra">Finalizar compra</button>
-    </section>
+    // Actualizar la lista del carrito
+    const carritoLista = document.getElementById('carrito-lista');
+    carritoLista.innerHTML = '';
+    carrito.forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = `${item.nombre} - $${item.precio.toLocaleString()} x ${item.cantidad}`;
+      carritoLista.appendChild(li);
+    });
+  }
 
-    <h2>Carrito</h2>
-    <ul id="carrito-lista"></ul>
-  </div>
+  // Función para añadir un producto al carrito
+  function añadirAlCarrito(id, nombre, precio) {
+    // Buscar si el producto ya está en el carrito
+    let productoExistente = carrito.find(item => item.id === id);
 
-  <footer>
-    <p>&copy; 2025 Tienda Glamour</p>
-  </footer>
-
-  <script>
-    let carrito = [];
-    let total = 0;
-
-    // Función para actualizar el total y la lista del carrito
-    function actualizarCarrito() {
-      // Actualizar el total
-      document.getElementById('total').textContent = `$${total}`;
-
-      // Actualizar la lista del carrito
-      const carritoLista = document.getElementById('carrito-lista');
-      carritoLista.innerHTML = '';
-      carrito.forEach(item => {
-        const li = document.createElement('li');
-        li.textContent = `${item.nombre} - $${item.precio} x ${item.cantidad}`;
-        carritoLista.appendChild(li);
-      });
+    if (productoExistente) {
+      // Si ya existe, aumentar la cantidad
+      productoExistente.cantidad++;
+    } else {
+      // Si no existe, agregarlo al carrito
+      carrito.push({ id, nombre, precio, cantidad: 1 });
     }
 
-    // Función para añadir un producto al carrito
-    function añadirAlCarrito(id, nombre, precio) {
-      // Buscar si el producto ya está en el carrito
-      let productoExistente = carrito.find(item => item.id === id);
+    // Actualizar el total
+    total += precio;
 
-      if (productoExistente) {
-        // Si ya existe, aumentar la cantidad
-        productoExistente.cantidad++;
-      } else {
-        // Si no existe, agregarlo al carrito
-        carrito.push({ id, nombre, precio, cantidad: 1 });
-      }
+    // Actualizar la vista del carrito
+    actualizarCarrito();
+  }
 
-      // Actualizar el total
-      total += precio;
+  // Evento para el botón de "Añadir al carrito"
+  document.querySelectorAll('.añadir-carrito').forEach(boton => {
+    boton.addEventListener('click', function () {
+      const producto = this.closest('.producto');
+      const id = producto.getAttribute('data-id');
+      const nombre = producto.querySelector('h3').textContent;
+      // Extraer el precio y convertirlo en número
+      const precio = parseFloat(producto.querySelector('p').textContent.replace('$', '').replace('.', '').replace(',', ''));
 
-      // Actualizar la vista del carrito
-      actualizarCarrito();
-    }
-
-    // Evento para el botón de "Añadir al carrito"
-    document.querySelectorAll('.añadir-carrito').forEach(boton => {
-      boton.addEventListener('click', function () {
-        const producto = this.closest('.producto');
-        const id = producto.getAttribute('data-id');
-        const nombre = producto.querySelector('h3').textContent;
-        const precio = parseInt(producto.querySelector('p').textContent.replace('$', '').replace('.', ''));
-
-        añadirAlCarrito(id, nombre, precio);
-      });
+      añadirAlCarrito(id, nombre, precio);
     });
+  });
 
-    // Evento para el botón de "Finalizar compra"
-    document.getElementById('finalizar-compra').addEventListener('click', () => {
-      alert('¡Gracias por tu compra!');
-      carrito = [];
-      total = 0;
-      actualizarCarrito();
-    });
-  </script>
-</body>
-</html>
+  // Evento para el botón de "Finalizar compra"
+  document.getElementById('finalizar-compra').addEventListener('click', () => {
+    alert('¡Gracias por tu compra!');
+    carrito = [];
+    total = 0;
+    actualizarCarrito();
+  });
+</script>
