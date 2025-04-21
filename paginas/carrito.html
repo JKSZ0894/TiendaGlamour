@@ -1,60 +1,43 @@
-<script>
-  let carrito = [];
-  let total = 0;
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carrito - Tienda Glamour</title>
+  <link rel="stylesheet" href="../css/carrito.css" />
 
-  // Función para actualizar el total y la lista del carrito
-  function actualizarCarrito() {
-    // Actualizar el total
-    document.getElementById('total').textContent = `$${total.toLocaleString()}`;
+</head>
+<body>
+  <header>
+    <h1>Tienda Glamour</h1>
+    <nav>
+      <ul>
+        <li><a href="../index.html">Inicio</a></li>
+        <li><a href="./productos.html">Productos</a></li>
+        <li><a href="./carrito.html">Carrito</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    // Actualizar la lista del carrito
-    const carritoLista = document.getElementById('carrito-lista');
-    carritoLista.innerHTML = '';
-    carrito.forEach(item => {
-      const li = document.createElement('li');
-      li.textContent = `${item.nombre} - $${item.precio.toLocaleString()} x ${item.cantidad}`;
-      carritoLista.appendChild(li);
-    });
-  }
+  <div class="container" style="flex-direction: column;">
+    <section class="nuevos-productos">
+      <h2>Carrito de Compras</h2>
+      <div class="productos">
+        <div class="producto">
+          <img src="../images/brocha.jpg" alt="Labial">
+          <h3>Brocha</h3>
+          <p>Cantidad: 1</p>
+          <p>Precio: $25.000</p>
+          <button>Eliminar</button>
+        </div>
+      </div>
+      <h3>Total: $25.000</h3>
+      <button>Finalizar compra</button>
+    </section>
+  </div>
 
-  // Función para añadir un producto al carrito
-  function añadirAlCarrito(id, nombre, precio) {
-    // Buscar si el producto ya está en el carrito
-    let productoExistente = carrito.find(item => item.id === id);
-
-    if (productoExistente) {
-      // Si ya existe, aumentar la cantidad
-      productoExistente.cantidad++;
-    } else {
-      // Si no existe, agregarlo al carrito
-      carrito.push({ id, nombre, precio, cantidad: 1 });
-    }
-
-    // Actualizar el total
-    total += precio;
-
-    // Actualizar la vista del carrito
-    actualizarCarrito();
-  }
-
-  // Evento para el botón de "Añadir al carrito"
-  document.querySelectorAll('.añadir-carrito').forEach(boton => {
-    boton.addEventListener('click', function () {
-      const producto = this.closest('.producto');
-      const id = producto.getAttribute('data-id');
-      const nombre = producto.querySelector('h3').textContent;
-      // Extraer el precio y convertirlo en número
-      const precio = parseFloat(producto.querySelector('p').textContent.replace('$', '').replace('.', '').replace(',', ''));
-
-      añadirAlCarrito(id, nombre, precio);
-    });
-  });
-
-  // Evento para el botón de "Finalizar compra"
-  document.getElementById('finalizar-compra').addEventListener('click', () => {
-    alert('¡Gracias por tu compra!');
-    carrito = [];
-    total = 0;
-    actualizarCarrito();
-  });
-</script>
+  <footer>
+    <p>&copy; 2025 Tienda Glamour</p>
+  </footer>
+</body>
+</html>
