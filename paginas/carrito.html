@@ -23,21 +23,64 @@
     <section class="nuevos-productos">
       <h2>Carrito de Compras</h2>
       <div class="productos">
-        <div class="producto">
-          <img src="../images/brocha.jpg" alt="Labial">
+        <div class="producto" data-id="1">
+          <img src="../images/brocha.jpg" alt="Brocha">
           <h3>Brocha</h3>
-          <p>Cantidad: 1</p>
-          <p>Precio: $25.000</p>
-          <button>Eliminar</button>
+          <p class="cantidad">Cantidad: 1</p>
+          <p class="precio">Precio: $25.000</p>
+          <button class="eliminar">Eliminar</button>
         </div>
+        
       </div>
-      <h3>Total: $25.000</h3>
-      <button>Finalizar compra</button>
+      <h3>Total: <span id="total">$25.000</span></h3>
+<button id="finalizar-compra">Finalizar compra</button>
+
     </section>
   </div>
 
   <footer>
     <p>&copy; 2025 Tienda Glamour</p>
   </footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const productos = document.querySelectorAll('.producto');
+      const totalElement = document.getElementById('total');
+      const finalizarBtn = document.getElementById('finalizar-compra');
+  
+      function limpiarTextoPrecio(texto) {
+        return parseInt(texto.replace(/[^0-9]/g, ''));
+      }
+  
+      function calcularTotal() {
+        let total = 0;
+        document.querySelectorAll('.producto').forEach(producto => {
+          const precioTexto = producto.querySelector('.precio').textContent;
+          total += limpiarTextoPrecio(precioTexto);
+        });
+        totalElement.textContent = `$${total.toLocaleString()}`;
+      }
+  
+      // Eliminar producto
+      document.querySelectorAll('.eliminar').forEach(boton => {
+        boton.addEventListener('click', function () {
+          const producto = this.closest('.producto');
+          producto.remove();
+          calcularTotal();
+        });
+      });
+  
+      // Finalizar compra
+      if (finalizarBtn) {
+        finalizarBtn.addEventListener('click', () => {
+          alert('¡Gracias por tu compra!');
+          document.querySelector('.productos').innerHTML = '';
+          totalElement.textContent = '$0';
+        });
+      }
+  
+      calcularTotal(); // Para asegurarse que el total esté bien al cargar
+    });
+  </script>
+  
 </body>
 </html>
