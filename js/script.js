@@ -14,9 +14,9 @@ vaciarBtn.addEventListener('click', () => {
     let total = 0;
   
     const data = [
-        { nombre: 'Labial Rosa', precio: 20, imagen: './images/labial rosa.jpg' },
-        { nombre: 'Base Líquida', precio: 35, imagen: './images/base liquida.avif' },
-        { nombre: 'Rímel Volumen', precio: 28, imagen: './images/rimel volumen.avif' }
+        { nombre: 'Labial Rosa', precio: 20.000, imagen: './images/labial rosa.jpg' },
+        { nombre: 'Base Líquida', precio: 35.000, imagen: './images/base liquida.avif' },
+        { nombre: 'Rímel Volumen', precio: 28.000, imagen: './images/rimel volumen.avif' }
       ];
       
   
