@@ -14,18 +14,21 @@ vaciarBtn.addEventListener('click', () => {
     let total = 0;
   
     const data = [
-      { nombre: 'Labial Rosa', precio: 20 },
-      { nombre: 'Base Líquida', precio: 35 },
-      { nombre: 'Rímel Volumen', precio: 28 }
-    ];
+        { nombre: 'Labial Rosa', precio: 20, imagen: './images/labial rosa.jpg' },
+        { nombre: 'Base Líquida', precio: 35, imagen: './images/base liquida.avif' },
+        { nombre: 'Rímel Volumen', precio: 28, imagen: './images/rimel volumen.avif' }
+      ];
+      
   
     data.forEach(prod => {
       const div = document.createElement('div');
       div.innerHTML = `
-        <h3>${prod.nombre}</h3>
-        <p>$${prod.precio}</p>
-        <button>Agregar</button>
-      `;
+      <img src="${prod.imagen}" alt="${prod.nombre}" style="width: 120px; height: auto;">
+      <h3>${prod.nombre}</h3>
+      <p>$${prod.precio}</p>
+      <button>Agregar</button>
+    `;
+    
   
       const btn = div.querySelector('button');
       btn.addEventListener('click', () => {
