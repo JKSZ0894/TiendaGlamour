@@ -2,6 +2,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const productos = document.querySelector('.productos');
     const carritoLista = document.getElementById('carrito-lista');
     const totalSpan = document.getElementById('total');
+    const vaciarBtn = document.getElementById('vaciar');
+
+vaciarBtn.addEventListener('click', () => {
+  carritoLista.innerHTML = ''; // Limpia la lista
+  total = 0;                   // Reinicia el total
+  totalSpan.textContent = total;
+});
+
   
     let total = 0;
   
