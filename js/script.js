@@ -13,11 +13,28 @@ vaciarBtn.addEventListener('click', () => {
   
     let total = 0;
   
-    const data = [
-        { nombre: 'Labial Rosa', precio: 20.000, imagen: './images/labial rosa.jpg' },
-        { nombre: 'Base Líquida', precio: 35.000, imagen: './images/base liquida.avif' },
-        { nombre: 'Rímel Volumen', precio: 28.000, imagen: './images/rimel volumen.avif' }
-      ];
+
+const data = [
+  {
+    nombre: 'Labial Rosa',
+    precio: 20.000,
+    imagen: './images/labial rosa.webp',
+    descripcion: 'Labial de tono rosa suave, ideal para uso diario.'
+  },
+  {
+    nombre: 'Base Líquida',
+    precio: 35.000,
+    imagen: './images/base liquida.webp',
+    descripcion: 'Base líquida de cobertura media, perfecta para piel mixta.'
+  },
+  {
+    nombre: 'Rímel Volumen',
+    precio: 28.000,
+    imagen: './images/rimel volumen.webp',
+    descripcion: 'Rímel que aporta volumen y alarga las pestañas sin grumos.'
+  }
+];
+
       
   
     data.forEach(prod => {
